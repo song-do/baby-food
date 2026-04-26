@@ -680,20 +680,17 @@
       <strong>의학적 조언이 아니며</strong>, 알레르기 식품은<br>
       반드시 소량부터 시도해주세요.
     </div>
-    <details style="margin-bottom: 16px; font-size: 13px;">
-      <summary style="cursor: pointer; color: var(--primary); font-weight: 600; padding: 8px 0;">자세한 안전 안내 보기</summary>
-      <div style="margin-top: 8px; padding: 12px; background: var(--bg-start); border-radius: 8px; line-height: 1.7; color: var(--text);">
-        <strong>꼭 지켜주세요:</strong>
-        <ul style="margin-top: 6px; padding-left: 20px;">
-          <li>새 식재료는 한 번에 하나씩, 3-4일 간격으로 시도해주세요</li>
-          <li>아기에게 이상 반응(발진·구토·설사)이 있으면 즉시 소아과에 문의하세요</li>
-          <li>이유식 진행은 아기 개별 발달 상태에 따라 달라요</li>
-          <li>소금·설탕·간장 등 조미료는 사용하지 마세요</li>
-          <li><strong style="color: var(--warning);">12개월 미만 아기에게 꿀은 절대 금지</strong> (영아 보툴리누스증 위험)</li>
-          <li>통견과류·생고기·덜 익힌 계란·딱딱한 과일은 질식 위험</li>
-        </ul>
-      </div>
-    </details>
+    <div style="margin-bottom: 16px; padding: 12px 14px; background: var(--bg-start); border-radius: 8px; font-size: 13px; line-height: 1.7; color: var(--text);">
+      <strong>꼭 지켜주세요</strong>
+      <ul style="margin-top: 6px; padding-left: 20px;">
+        <li>새 식재료는 한 번에 하나씩, 3-4일 간격으로 시도해주세요</li>
+        <li>아기에게 이상 반응(발진·구토·설사)이 있으면 즉시 소아과에 문의하세요</li>
+        <li>이유식 진행은 아기 개별 발달 상태에 따라 달라요</li>
+        <li>소금·설탕·간장 등 조미료는 사용하지 마세요</li>
+        <li><strong style="color: var(--warning);">12개월 미만 아기에게 꿀은 절대 금지</strong> (영아 보툴리누스증 위험)</li>
+        <li>통견과류·생고기·덜 익힌 계란·딱딱한 과일은 질식 위험</li>
+      </ul>
+    </div>
     <button class="modal-btn" onclick="acceptDisclaimer()">확인했어요</button>
   </div>
 </div>
@@ -704,7 +701,10 @@
       <span class="star-icon">⭐</span>
       <span class="favorites-count" id="favoritesCount" style="display:none;">0</span>
     </button>
-    <img src="/logo.png" alt="남은재료 이유식" class="logo" width="220" height="220" />
+    <picture>
+      <source srcset="/logo.webp" type="image/webp" />
+      <img src="/logo.jpg" alt="남은재료 이유식" class="logo" width="480" height="480" />
+    </picture>
     <p class="subtitle">냉장고 재료로 이유식 아이디어 3가지</p>
     <p class="tiny-notice">
       AI 추천은 참고용이에요. <a onclick="showDisclaimer()">안전 안내</a>
