@@ -155,6 +155,29 @@
     font-size: 14px;
     color: var(--primary-dark);
   }
+  .label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .label-row .label {
+    margin-bottom: 0;
+  }
+  .clear-btn {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 6px 8px;
+    text-decoration: underline;
+  }
+  .clear-btn:active {
+    color: var(--warning);
+  }
   .age-options {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -204,10 +227,20 @@
     color: var(--muted);
     font-weight: 500;
     font-family: inherit;
-    transition: background 0.15s;
+    transition: background 0.15s, color 0.15s;
   }
   .quick-chip:hover {
     background: #f5ebb5;
+  }
+  .quick-chip.is-added {
+    background: var(--trust-soft);
+    color: var(--trust);
+    font-weight: 700;
+    cursor: default;
+    opacity: 0.85;
+  }
+  .quick-chip.is-added:hover {
+    background: var(--trust-soft);
   }
   .input-row {
     display: flex;
@@ -718,7 +751,12 @@
   </div>
 
   <div class="card" id="ingredientCard" style="display: none;">
-    <label class="label">냉장고에 남은 재료</label>
+    <div class="label-row">
+      <label class="label">냉장고에 남은 재료</label>
+      <button class="clear-btn" id="clearBtn" onclick="clearIngredients()" style="display:none;">
+        전체 지우기
+      </button>
+    </div>
     <div class="quick-add" id="quickAdd"></div>
     <div class="input-row">
       <input type="text" id="ingredientInput" placeholder="예: 소고기, 애호박, 당근" onkeydown="handleKey(event)" />
@@ -729,7 +767,7 @@
     </div>
   </div>
 
-  <button class="submit-btn sticky-mode" id="submitBtn" onclick="getRecipes()" style="display: none;">이유식 레시피 만들기</button>
+  <button class="submit-btn sticky-mode" id="submitBtn" onclick="getRecipes()" style="display: none;" disabled>재료를 추가해주세요</button>
 
   <div class="recipes-area" id="recipesArea"></div>
 </div>
@@ -775,9 +813,11 @@
   function renderQuickAdd() {
     const container = document.getElementById('quickAdd');
     const items = QUICK_ITEMS_BY_AGE[babyAge] || [];
-    container.innerHTML = items.map(item =>
-      `<button class="quick-chip" onclick="quickAdd('${escapeHtml(item).replace(/'/g, "\\'")}')">+ ${escapeHtml(item)}</button>`
-    ).join('');
+    container.innerHTML = items.map(item => {
+      const added = ingredients.includes(item);
+      const safe = escapeHtml(item).replace(/'/g, "\\'");
+      return `<button class="quick-chip ${added ? 'is-added' : ''}" onclick="quickAdd('${safe}')" ${added ? 'disabled' : ''}>${added ? '✓' : '+'} ${escapeHtml(item)}</button>`;
+    }).join('');
   }
 
   // HTML 이스케이프 (XSS 방지)
@@ -795,6 +835,7 @@
     if (!ingredients.includes(item)) {
       ingredients.push(item);
       renderIngredients();
+      renderQuickAdd();
     }
   }
 
@@ -811,6 +852,7 @@
       btnEl.style.display = 'block';
       card.style.animation = 'fadeSlide 0.3s ease-out';
       btnEl.style.animation = 'fadeSlide 0.3s ease-out';
+      updateSubmitState();
       setTimeout(() => {
         card.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }, 100);
@@ -833,27 +875,56 @@
     });
     input.value = '';
     renderIngredients();
+    renderQuickAdd();
   }
 
   function removeIngredient(idx) {
     ingredients.splice(idx, 1);
     renderIngredients();
+    renderQuickAdd();
+  }
+
+  function clearIngredients() {
+    if (ingredients.length === 0) return;
+    ingredients = [];
+    renderIngredients();
+    renderQuickAdd();
+  }
+
+  function updateSubmitState() {
+    const btn = document.getElementById('submitBtn');
+    if (!btn) return;
+    // 로딩 중이면 건드리지 않음
+    if (btn.disabled && btn.textContent === '레시피 만드는 중...') return;
+
+    if (ingredients.length === 0) {
+      btn.disabled = true;
+      btn.textContent = '재료를 추가해주세요';
+    } else {
+      btn.disabled = false;
+      btn.textContent = `${ingredients.length}개 재료로 레시피 만들기`;
+    }
   }
 
   function renderIngredients() {
     const list = document.getElementById('ingredientList');
+    const clearBtn = document.getElementById('clearBtn');
+    if (clearBtn) {
+      clearBtn.style.display = ingredients.length > 0 ? 'block' : 'none';
+    }
     if (ingredients.length === 0) {
       list.innerHTML = '<span class="empty-hint">재료를 추가해주세요</span>';
-      return;
+    } else {
+      list.innerHTML = ingredients.map((ing, i) =>
+        `<span class="chip">${escapeHtml(ing)}<button class="chip-x" onclick="removeIngredient(${i})" aria-label="${escapeHtml(ing)} 제거">×</button></span>`
+      ).join('');
     }
-    list.innerHTML = ingredients.map((ing, i) =>
-      `<span class="chip">${escapeHtml(ing)}<button class="chip-x" onclick="removeIngredient(${i})" aria-label="${escapeHtml(ing)} 제거">×</button></span>`
-    ).join('');
+    updateSubmitState();
   }
 
   async function getRecipes() {
     if (!babyAge) { alert('아기 개월 수를 선택해주세요'); return; }
-    if (ingredients.length === 0) { alert('재료를 한 개 이상 추가해주세요'); return; }
+    if (ingredients.length === 0) return; // 버튼 자체가 비활성화돼있음
 
     // 면책조항 안 본 사용자라면 먼저 모달 띄우기
     if (!hasSeenDisclaimer()) {
@@ -981,7 +1052,7 @@
     } finally {
       clearInterval(loadingInterval);
       btn.disabled = false;
-      btn.textContent = '이유식 레시피 만들기';
+      updateSubmitState();
     }
   }
 
