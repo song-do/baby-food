@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="theme-color" content="#fff8d6" />
+
+<!-- SEO & 공유용 메타 태그 -->
+<title>남은재료 이유식 - 냉장고 재료로 만드는 아기 이유식</title>
+<meta name="description" content="냉장고에 남은 재료를 입력하면 우리 아기 개월 수에 맞는 이유식 레시피를 알려드려요." />
+<meta name="keywords" content="이유식, 이유식 레시피, 아기 이유식, 초기 이유식, 중기 이유식, 후기 이유식, 완료기 이유식" />
+
+<!-- 카카오톡·페이스북 공유 미리보기 -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="남은재료 이유식" />
+<meta property="og:description" content="냉장고에 남은 재료로 우리 아기 이유식 만들기" />
+<meta property="og:image" content="/og-image.png" />
+<meta property="og:locale" content="ko_KR" />
+
+<!-- 트위터 카드 -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="남은재료 이유식" />
+<meta name="twitter:description" content="냉장고에 남은 재료로 우리 아기 이유식 만들기" />
+
+<!-- PWA 설정 -->
+<link rel="manifest" href="/manifest.json" />
+<link rel="apple-touch-icon" href="/icon-192.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="남은재료 이유식" />
+
+<!-- 파비콘 (이모지 SVG) -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍼</text></svg>" />
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+    background: linear-gradient(135deg, #fffbe6 0%, #fff3b8 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #3d3525;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 22px;
+  }
+  h1 {
+    font-size: 26px;
+    margin-bottom: 4px;
+    color: #6b5a1f;
+  }
+  .subtitle {
+    color: #9a8a55;
+    font-size: 13px;
+  }
+  .card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(150, 130, 50, 0.08);
+    margin-bottom: 16px;
+  }
+  .label {
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: block;
+    font-size: 14px;
+    color: #5d501e;
+  }
+  .age-options {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+  .age-btn {
+    padding: 10px 4px;
+    border: 1.5px solid #f0e8c4;
+    background: white;
+    border-radius: 10px;
+    font-size: 12px;
+    cursor: pointer;
+    color: #8a7a45;
+    font-family: inherit;
+    line-height: 1.3;
+    transition: all 0.15s;
+  }
+  .age-btn:hover {
+    border-color: #e8d875;
+  }
+  .age-btn.active {
+    border-color: #d4b94a;
+    background: #fff8d6;
+    color: #6b5a1f;
+    font-weight: 700;
+  }
+  .age-btn strong {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 2px;
+  }
+  .quick-add {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .quick-chip {
+    background: #fbf4d4;
+    border: none;
+    padding: 6px 11px;
+    border-radius: 14px;
+    font-size: 12px;
+    cursor: pointer;
+    color: #8a7a45;
+    font-family: inherit;
+    transition: background 0.15s;
+  }
+  .quick-chip:hover {
+    background: #f5ebb5;
+  }
+  .input-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  input[type="text"] {
+    flex: 1;
+    padding: 12px 14px;
+    border: 1.5px solid #f0e8c4;
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    transition: border 0.2s;
+    background: #fffef7;
+  }
+  input[type="text"]:focus {
+    border-color: #d4b94a;
+  }
+  .add-btn {
+    padding: 0 18px;
+    background: #3d3525;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .add-btn:active { opacity: 0.8; }
+  .ingredient-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-height: 32px;
+  }
+  .chip {
+    background: #fff8d6;
+    border: 1px solid #ead874;
+    color: #6b5a1f;
+    padding: 6px 10px 6px 12px;
+    border-radius: 18px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .chip-x {
+    background: rgba(0,0,0,0.1);
+    border: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 11px;
+    color: #3d3525;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  .empty-hint {
+    color: #c4b885;
+    font-size: 13px;
+    font-style: italic;
+  }
+  .submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: #d4b94a;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(212, 185, 74, 0.4);
+    transition: transform 0.1s;
+  }
+  .submit-btn:active { transform: scale(0.98); }
+  .submit-btn:disabled {
+    background: #d4cfb5;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  .recipe-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(150, 130, 50, 0.08);
+    margin-bottom: 14px;
+  }
+  .recipe-title {
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #3d3525;
+  }
+  .recipe-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+    color: #9a8a55;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .recipe-section { margin-bottom: 14px; }
+  .section-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #b89c2b;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .ingredient-text {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #4a4030;
+  }
+  .step-list {
+    list-style: none;
+    counter-reset: step;
+  }
+  .step-list li {
+    counter-increment: step;
+    padding-left: 32px;
+    position: relative;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #4a4030;
+  }
+  .step-list li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #d4b94a;
+    color: white;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .tip-box {
+    background: #fffbe6;
+    border-left: 3px solid #d4b94a;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #4a4030;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+  .warning-box {
+    background: #fff5f0;
+    border-left: 3px solid #ff8c5a;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #c44b1f;
+    line-height: 1.5;
+  }
+  .loading {
+    text-align: center;
+    padding: 40px 20px;
+    color: #9a8a55;
+  }
+  .spinner {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border: 3px solid #fbf4d4;
+    border-top-color: #d4b94a;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 10px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .error {
+    background: #fff5f0;
+    color: #c44;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 14px;
+  }
+  .footer {
+    text-align: center;
+    color: #b8a960;
+    font-size: 11px;
+    margin-top: 30px;
+    padding: 20px 0;
+    line-height: 1.6;
+  }
+  .footer a {
+    color: #b8a960;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  /* 면책조항 모달 */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: white;
+    border-radius: 18px;
+    max-width: 420px;
+    width: 100%;
+    padding: 28px 24px 24px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .modal-icon {
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 12px;
+  }
+  .modal-title {
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 14px;
+    color: #3d3525;
+  }
+  .modal-body {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #5a5040;
+    margin-bottom: 20px;
+  }
+  .modal-body ul {
+    margin-top: 8px;
+    padding-left: 20px;
+  }
+  .modal-body li {
+    margin-bottom: 4px;
+  }
+  .modal-btn {
+    width: 100%;
+    padding: 14px;
+    background: #d4b94a;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .modal-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #8a7a55;
+    margin-bottom: 14px;
+    cursor: pointer;
+  }
+  .modal-checkbox input { cursor: pointer; }
+</style>
+</head>
+<body>
+
+<!-- 첫 방문 면책조항 모달 -->
+<div class="modal-overlay" id="disclaimerModal">
+  <div class="modal">
+    <div class="modal-icon">👶</div>
+    <div class="modal-title">시작하기 전에 알려드려요</div>
+    <div class="modal-body">
+      이 앱은 AI가 만든 이유식 레시피를 추천해드려요.<br><br>
+      <strong>꼭 기억해주세요:</strong>
+      <ul>
+        <li>의학적·영양학적 조언이 아니에요</li>
+        <li>알레르기 식품은 반드시 소량부터 시도해주세요</li>
+        <li>아기에게 이상 반응이 있으면 바로 소아과에 문의하세요</li>
+        <li>이유식 진행은 아기 개별 발달 상태에 따라 달라요</li>
+      </ul>
+    </div>
+    <button class="modal-btn" onclick="acceptDisclaimer()">확인했어요</button>
+  </div>
+</div>
+
+<div class="container">
+  <div class="header">
+    <h1>🍼 남은재료 이유식</h1>
+    <p class="subtitle">냉장고 속 재료로 우리 아기 이유식 만들기</p>
+  </div>
+
+  <div class="card">
+    <label class="label">아기 개월 수</label>
+    <div class="age-options">
+      <button class="age-btn" data-age="초기 (4-6개월, 미음/퓌레)" onclick="setAge(this)">
+        <strong>초기</strong>4-6개월
+      </button>
+      <button class="age-btn" data-age="중기 (7-9개월, 으깬 형태)" onclick="setAge(this)">
+        <strong>중기</strong>7-9개월
+      </button>
+      <button class="age-btn" data-age="후기 (10-12개월, 잘게 다진 형태)" onclick="setAge(this)">
+        <strong>후기</strong>10-12개월
+      </button>
+      <button class="age-btn" data-age="완료기 (12개월+, 작은 조각)" onclick="setAge(this)">
+        <strong>완료기</strong>12개월+
+      </button>
+    </div>
+  </div>
+
+  <div class="card">
+    <label class="label">냉장고에 남은 재료</label>
+    <div class="quick-add" id="quickAdd"></div>
+    <div class="input-row">
+      <input type="text" id="ingredientInput" placeholder="예: 소고기, 애호박, 당근" onkeydown="handleKey(event)" />
+      <button class="add-btn" onclick="addIngredient()">추가</button>
+    </div>
+    <div class="ingredient-list" id="ingredientList">
+      <span class="empty-hint">재료를 추가해주세요</span>
+    </div>
+  </div>
+
+  <button class="submit-btn" id="submitBtn" onclick="getRecipes()">이유식 레시피 만들기</button>
+
+  <div class="recipes-area" id="recipesArea"></div>
+
+  <div class="footer">
+    AI가 만든 추천이며 의료적·영양학적 조언이 아닙니다.<br>
+    알레르기 반응 시 즉시 소아과에 문의하세요.<br>
+    <a onclick="showDisclaimer()">안내사항 다시 보기</a>
+  </div>
+</div>
+
+<script>
+  // Cloudflare Worker API 주소
+  const API_URL = 'https://baby-food-api.bokleeman1.workers.dev';
+
+  let ingredients = [];
+  let babyAge = '';
+
+  const QUICK_ITEMS = ['소고기', '닭안심', '브로콜리', '애호박', '고구마', '단호박', '시금치', '당근', '감자', '양파', '두부', '쌀'];
+
+  // 첫 방문 체크
+  function checkFirstVisit() {
+    const accepted = (function() {
+      try { return localStorage.getItem('disclaimerAccepted'); }
+      catch (e) { return null; }
+    })();
+    if (!accepted) {
+      document.getElementById('disclaimerModal').classList.add('show');
+    }
+  }
+
+  function acceptDisclaimer() {
+    try { localStorage.setItem('disclaimerAccepted', 'true'); } catch (e) {}
+    document.getElementById('disclaimerModal').classList.remove('show');
+  }
+
+  function showDisclaimer() {
+    document.getElementById('disclaimerModal').classList.add('show');
+  }
+
+  function renderQuickAdd() {
+    document.getElementById('quickAdd').innerHTML = QUICK_ITEMS.map(item =>
+      `<button class="quick-chip" onclick="quickAdd('${item}')">+ ${item}</button>`
+    ).join('');
+  }
+
+  function quickAdd(item) {
+    if (!ingredients.includes(item)) {
+      ingredients.push(item);
+      renderIngredients();
+    }
+  }
+
+  function setAge(btn) {
+    babyAge = btn.dataset.age;
+    document.querySelectorAll('.age-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function handleKey(e) {
+    if (e.key === 'Enter') { e.preventDefault(); addIngredient(); }
+  }
+
+  function addIngredient() {
+    const input = document.getElementById('ingredientInput');
+    const value = input.value.trim();
+    if (!value) return;
+    const items = value.split(/[,，、]/).map(s => s.trim()).filter(Boolean);
+    items.forEach(item => { if (!ingredients.includes(item)) ingredients.push(item); });
+    input.value = '';
+    renderIngredients();
+  }
+
+  function removeIngredient(idx) {
+    ingredients.splice(idx, 1);
+    renderIngredients();
+  }
+
+  function renderIngredients() {
+    const list = document.getElementById('ingredientList');
+    if (ingredients.length === 0) {
+      list.innerHTML = '<span class="empty-hint">재료를 추가해주세요</span>';
+      return;
+    }
+    list.innerHTML = ingredients.map((ing, i) =>
+      `<span class="chip">${ing}<button class="chip-x" onclick="removeIngredient(${i})">×</button></span>`
+    ).join('');
+  }
+
+  async function getRecipes() {
+    if (!babyAge) { alert('아기 개월 수를 선택해주세요'); return; }
+    if (ingredients.length === 0) { alert('재료를 한 개 이상 추가해주세요'); return; }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = '레시피 만드는 중...';
+
+    const area = document.getElementById('recipesArea');
+    area.innerHTML = '<div class="loading"><div class="spinner"></div><div>아기에게 맞는 이유식을 찾고 있어요...</div></div>';
+
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          age: babyAge,
+          ingredients: ingredients
+        })
+      });
+
+      const rawText = await response.text();
+      console.log('Response:', rawText);
+
+      let data;
+      try {
+        data = JSON.parse(rawText);
+      } catch (e) {
+        throw new Error('서버 응답을 읽지 못했어요');
+      }
+
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      // Gemini 응답 텍스트 추출
+      let text = '';
+      if (data.candidates?.[0]?.content?.parts) {
+        text = data.candidates[0].content.parts.map(p => p.text || '').join('\n');
+      } else if (data.text) {
+        text = data.text;
+      } else if (typeof data === 'string') {
+        text = data;
+      }
+
+      if (!text || !text.trim()) {
+        throw new Error('빈 응답이에요. 잠시 후 다시 시도해주세요.');
+      }
+
+      text = text.trim().replace(/```json/gi, '').replace(/```/g, '').trim();
+
+      const firstBrace = text.indexOf('{');
+      const lastBrace = text.lastIndexOf('}');
+
+      if (firstBrace === -1 || lastBrace <= firstBrace) {
+        renderAiMessage(text);
+        return;
+      }
+
+      const jsonText = text.substring(firstBrace, lastBrace + 1);
+
+      let parsed;
+      try {
+        parsed = JSON.parse(jsonText);
+      } catch (parseErr) {
+        let fixed = jsonText;
+        const quoteCount = (fixed.match(/"/g) || []).length;
+        if (quoteCount % 2 !== 0) fixed += '"';
+        const ob = (fixed.match(/\{/g) || []).length;
+        const cb = (fixed.match(/\}/g) || []).length;
+        const obr = (fixed.match(/\[/g) || []).length;
+        const cbr = (fixed.match(/\]/g) || []).length;
+        fixed = fixed.replace(/,\s*$/, '');
+        for (let i = 0; i < obr - cbr; i++) fixed += ']';
+        for (let i = 0; i < ob - cb; i++) fixed += '}';
+        try {
+          parsed = JSON.parse(fixed);
+        } catch (e2) {
+          renderAiMessage(text);
+          return;
+        }
+      }
+
+      if (!parsed.recipes || !Array.isArray(parsed.recipes) || parsed.recipes.length === 0) {
+        renderAiMessage(text);
+        return;
+      }
+
+      renderRecipes(parsed.recipes);
+    } catch (err) {
+      console.error('레시피 생성 에러:', err);
+      area.innerHTML = `<div class="error"><strong>레시피를 불러오지 못했어요</strong><br><small>${err.message}</small></div>`;
+    } finally {
+      btn.disabled = false;
+      btn.textContent = '이유식 레시피 만들기';
+    }
+  }
+
+  function renderRecipes(recipes) {
+    const area = document.getElementById('recipesArea');
+    area.innerHTML = recipes.map(r => `
+      <div class="recipe-card">
+        <div class="recipe-title">${r.title || '이유식'}</div>
+        <div class="recipe-meta">
+          <span>⏱ ${r.time || '-'}</span>
+          <span>🍽 ${r.servings || '-'}</span>
+        </div>
+        <div class="recipe-section">
+          <div class="section-label">재료</div>
+          <div class="ingredient-text">${r.ingredients || ''}</div>
+        </div>
+        <div class="recipe-section">
+          <div class="section-label">조리 순서</div>
+          <ol class="step-list">
+            ${(r.steps || []).map(s => `<li>${s}</li>`).join('')}
+          </ol>
+        </div>
+        ${r.tip ? `<div class="tip-box">💡 ${r.tip}</div>` : ''}
+        ${r.warning && r.warning.trim() ? `<div class="warning-box">⚠️ ${r.warning}</div>` : ''}
+      </div>
+    `).join('');
+  }
+
+  function renderAiMessage(message) {
+    const area = document.getElementById('recipesArea');
+    const cleanMsg = message.replace(/[<>]/g, c => c === '<' ? '&lt;' : '&gt;');
+    area.innerHTML = `
+      <div class="recipe-card" style="border-left: 4px solid #d4b94a;">
+        <div style="font-size: 14px; line-height: 1.7; color: #4a4030; white-space: pre-wrap;">${cleanMsg}</div>
+      </div>
+    `;
+  }
+
+  // 초기화
+  renderQuickAdd();
+  checkFirstVisit();
+</script>
+</body>
+</html>
