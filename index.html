@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="theme-color" content="var(--primary-soft)" />
+<meta name="theme-color" content="#FFF8D6" />
 
 <!-- SEO & 공유용 메타 태그 -->
 <title>남은재료 이유식 - 냉장고 재료로 만드는 아기 이유식</title>
@@ -114,25 +114,31 @@
     margin-bottom: 4px;
     color: var(--primary-dark);
   }
+  .logo {
+    display: block;
+    width: 180px;
+    height: auto;
+    margin: 0 auto 4px;
+    max-width: 60%;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+  }
   .subtitle {
     color: var(--muted);
     font-size: 13px;
   }
-  .trust-hint {
-    margin-top: 10px;
-    padding: 8px 12px;
-    background: var(--trust-soft);
-    border-radius: 8px;
-    color: var(--trust);
+  .tiny-notice {
+    margin-top: 8px;
+    color: var(--muted);
     font-size: 12px;
     line-height: 1.5;
-    display: inline-block;
   }
-  .trust-hint a {
+  .tiny-notice a {
     color: var(--trust);
+    font-weight: 700;
     text-decoration: underline;
     cursor: pointer;
-    font-weight: 600;
   }
   .card {
     background: white;
@@ -186,79 +192,6 @@
     gap: 6px;
     margin-bottom: 10px;
   }
-  .category-toggle {
-    display: flex;
-    gap: 6px;
-    margin-bottom: 8px;
-    flex-wrap: wrap;
-  }
-  .cat-btn {
-    flex: 1;
-    min-width: 100px;
-    min-height: 44px;
-    padding: 10px 8px;
-    background: white;
-    border: 1.5px solid #f0e8c4;
-    border-radius: 10px;
-    font-size: 12px;
-    color: var(--muted);
-    cursor: pointer;
-    font-family: inherit;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    font-weight: 500;
-    transition: all 0.15s;
-  }
-  .cat-btn.active {
-    background: var(--primary-soft);
-    border-color: var(--primary);
-    color: var(--primary-dark);
-    font-weight: 700;
-  }
-  .cat-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-  .cat-hint {
-    font-size: 12px;
-    color: var(--muted);
-    margin-bottom: 12px;
-    padding-left: 2px;
-  }
-  .example-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    align-items: center;
-    margin: 4px 0 12px;
-    font-size: 12px;
-    color: var(--muted);
-  }
-  .example-btn {
-    background: transparent;
-    border: 1px dashed #c9a93f;
-    padding: 5px 10px;
-    border-radius: 12px;
-    font-size: 12px;
-    color: var(--muted);
-    cursor: pointer;
-    font-family: inherit;
-  }
-  .example-btn:hover { background: var(--primary-soft); }
-  .chip.cat-new {
-    background: #e6f0fa;
-    border-color: #b6d4f0;
-    color: #1f4e7a;
-  }
-  .chip.cat-allergy {
-    background: #fde8e0;
-    border-color: #f4b89a;
-    color: #8c2f0e;
-  }
   .quick-chip {
     background: #fbf4d4;
     border: none;
@@ -283,9 +216,9 @@
   input[type="text"] {
     flex: 1;
     padding: 12px 14px;
-    border: 1.5px solid #f0e8c4;
+    border: 1.5px solid var(--border-soft);
     border-radius: 10px;
-    font-size: 15px;
+    font-size: 16px;
     font-family: inherit;
     outline: none;
     transition: border 0.2s;
@@ -547,8 +480,8 @@
     }
   }
 
-  /* 모바일 (420px 이하) - 2x2 개월수, 한 손 사용 최적화 */
-  @media (max-width: 420px) {
+  /* 모바일 (480px 이하) - 2x2 개월수, 한 손 사용 최적화 */
+  @media (max-width: 480px) {
     body {
       padding: 16px 14px calc(24px + env(safe-area-inset-bottom));
     }
@@ -559,9 +492,6 @@
     .age-btn {
       min-height: 56px;
       font-size: 13px;
-    }
-    input[type="text"] {
-      font-size: 16px; /* iOS 자동 줌 방지 */
     }
     .quick-chip {
       min-height: 40px;
@@ -574,6 +504,7 @@
       font-size: 15px;
     }
     h1 { font-size: 22px; }
+    .logo { width: 140px; }
     .subtitle { font-size: 12px; line-height: 1.5; }
   }
 
@@ -773,11 +704,10 @@
       <span class="star-icon">⭐</span>
       <span class="favorites-count" id="favoritesCount" style="display:none;">0</span>
     </button>
-    <h1>🍼 남은재료 이유식</h1>
-    <p class="subtitle">남은 재료로, 개월 수에 맞는 이유식 아이디어 3가지<br>알레르기·주의 재료는 한 번 더 확인해드려요</p>
-    <p class="trust-hint">
-      AI 추천은 참고용이에요. 알레르기·발달 상태는 꼭 확인해주세요.
-      <a onclick="showDisclaimer()">자세히 보기</a>
+    <img src="/logo.png" alt="남은재료 이유식" class="logo" width="220" height="220" />
+    <p class="subtitle">냉장고 재료로 이유식 아이디어 3가지</p>
+    <p class="tiny-notice">
+      AI 추천은 참고용이에요. <a onclick="showDisclaimer()">안전 안내</a>
     </p>
   </div>
 
@@ -801,29 +731,11 @@
 
   <div class="card" id="ingredientCard" style="display: none;">
     <label class="label">냉장고에 남은 재료</label>
-
-    <div class="category-toggle" role="tablist" aria-label="재료 분류">
-      <button class="cat-btn active" data-cat="tried" onclick="setCategory(this)" role="tab">
-        <span class="cat-dot" style="background:var(--primary);"></span>
-        <span>먹어본 재료</span>
-      </button>
-      <button class="cat-btn" data-cat="new" onclick="setCategory(this)" role="tab">
-        <span class="cat-dot" style="background:#3a82c4;"></span>
-        <span>처음 먹는 재료</span>
-      </button>
-      <button class="cat-btn" data-cat="allergy" onclick="setCategory(this)" role="tab">
-        <span class="cat-dot" style="background:var(--warning);"></span>
-        <span>알레르기 주의</span>
-      </button>
-    </div>
-    <p class="cat-hint" id="catHint">아기가 이미 먹어본 안전한 재료예요</p>
-
     <div class="quick-add" id="quickAdd"></div>
     <div class="input-row">
       <input type="text" id="ingredientInput" placeholder="예: 소고기, 애호박, 당근" onkeydown="handleKey(event)" />
       <button class="add-btn" onclick="addIngredient()">추가</button>
     </div>
-    <div class="example-row" id="exampleRow"></div>
     <div class="ingredient-list" id="ingredientList">
       <span class="empty-hint">재료를 추가해주세요</span>
     </div>
@@ -844,16 +756,15 @@
   // Cloudflare Worker API 주소
   const API_URL = 'https://baby-food-api.bokleeman1.workers.dev';
 
-  let ingredients = []; // [{ name, category }] 형태로 저장. category: 'tried' | 'new' | 'allergy'
+  let ingredients = [];
   let babyAge = '';
-  let currentCategory = 'tried'; // 기본값
 
-  // 개월 수별 빠른 추가 재료 (이유식에서 자주 쓰는 순서)
+  // 개월 수별 빠른 추가 재료 (이유식에서 자주 쓰는 8개)
   const QUICK_ITEMS_BY_AGE = {
-    '초기 (4-6개월, 미음/퓌레)': ['쌀', '오트밀', '단호박', '고구마', '애호박', '브로콜리', '감자', '양배추', '사과', '배', '당근', '바나나'],
-    '중기 (7-9개월, 으깬 형태)': ['소고기', '닭안심', '쌀', '브로콜리', '애호박', '단호박', '시금치', '청경채', '당근', '양파', '두부', '무'],
-    '후기 (10-12개월, 잘게 다진 형태)': ['소고기', '닭안심', '대구살', '두부', '브로콜리', '시금치', '당근', '양파', '감자', '단호박', '계란노른자', '표고버섯'],
-    '완료기 (12개월+, 작은 조각)': ['소고기', '닭고기', '대구살', '새우', '두부', '치즈', '계란', '브로콜리', '당근', '감자', '양파', '시금치']
+    '초기 (4-6개월, 미음/퓌레)': ['쌀', '오트밀', '단호박', '고구마', '애호박', '브로콜리', '감자', '배'],
+    '중기 (7-9개월, 으깬 형태)': ['소고기', '닭안심', '쌀', '브로콜리', '애호박', '단호박', '두부', '당근'],
+    '후기 (10-12개월, 잘게 다진 형태)': ['소고기', '닭안심', '대구살', '두부', '브로콜리', '당근', '감자', '계란노른자'],
+    '완료기 (12개월+, 작은 조각)': ['소고기', '닭고기', '대구살', '두부', '계란', '브로콜리', '감자', '양파']
   };
 
   // 면책조항을 봤는지 확인 (true면 본 적 있음)
@@ -879,57 +790,12 @@
     document.getElementById('disclaimerModal').classList.add('show');
   }
 
-  // 개월 수별 예시 재료 조합 (시작 가이드)
-  const EXAMPLES_BY_AGE = {
-    '초기 (4-6개월, 미음/퓌레)': [
-      ['쌀', '단호박'],
-      ['쌀', '애호박'],
-      ['오트밀', '사과']
-    ],
-    '중기 (7-9개월, 으깬 형태)': [
-      ['소고기', '애호박', '쌀'],
-      ['닭안심', '브로콜리', '당근'],
-      ['두부', '시금치', '쌀']
-    ],
-    '후기 (10-12개월, 잘게 다진 형태)': [
-      ['소고기', '단호박', '시금치'],
-      ['대구살', '두부', '브로콜리'],
-      ['닭안심', '감자', '당근']
-    ],
-    '완료기 (12개월+, 작은 조각)': [
-      ['소고기', '브로콜리', '감자'],
-      ['새우', '두부', '시금치'],
-      ['닭고기', '당근', '양파']
-    ]
-  };
-
   function renderQuickAdd() {
     const container = document.getElementById('quickAdd');
     const items = QUICK_ITEMS_BY_AGE[babyAge] || [];
     container.innerHTML = items.map(item =>
       `<button class="quick-chip" onclick="quickAdd('${escapeHtml(item).replace(/'/g, "\\'")}')">+ ${escapeHtml(item)}</button>`
     ).join('');
-
-    // 예시 재료도 같이 갱신
-    const exampleRow = document.getElementById('exampleRow');
-    const examples = EXAMPLES_BY_AGE[babyAge] || [];
-    if (examples.length === 0) {
-      exampleRow.innerHTML = '';
-      return;
-    }
-    exampleRow.innerHTML = '<span style="font-weight: 600;">💡 예시 조합:</span>' +
-      examples.map((combo, i) =>
-        `<button class="example-btn" onclick='fillExample(${JSON.stringify(combo)})'>${combo.join(' · ')}</button>`
-      ).join('');
-  }
-
-  function fillExample(items) {
-    items.forEach(item => {
-      if (!ingredients.some(i => i.name === item)) {
-        ingredients.push({ name: item, category: 'tried' });
-      }
-    });
-    renderIngredients();
   }
 
   // HTML 이스케이프 (XSS 방지)
@@ -943,21 +809,9 @@
       .replace(/'/g, '&#39;');
   }
 
-  function setCategory(btn) {
-    currentCategory = btn.dataset.cat;
-    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const hints = {
-      'tried': '아기가 이미 먹어본 안전한 재료예요',
-      'new': '처음 먹는 재료는 한 번에 하나씩, 3-4일 간격으로 시도해주세요',
-      'allergy': '알레르기 주의 식품은 소량부터 신중히 시도해주세요'
-    };
-    document.getElementById('catHint').textContent = hints[currentCategory];
-  }
-
   function quickAdd(item) {
-    if (!ingredients.some(i => i.name === item)) {
-      ingredients.push({ name: item, category: currentCategory });
+    if (!ingredients.includes(item)) {
+      ingredients.push(item);
       renderIngredients();
     }
   }
@@ -991,8 +845,8 @@
     if (!value) return;
     const items = value.split(/[,，、]/).map(s => s.trim()).filter(Boolean);
     items.forEach(item => {
-      if (!ingredients.some(i => i.name === item)) {
-        ingredients.push({ name: item, category: currentCategory });
+      if (!ingredients.includes(item)) {
+        ingredients.push(item);
       }
     });
     input.value = '';
@@ -1010,10 +864,9 @@
       list.innerHTML = '<span class="empty-hint">재료를 추가해주세요</span>';
       return;
     }
-    list.innerHTML = ingredients.map((ing, i) => {
-      const catClass = ing.category === 'new' ? 'cat-new' : ing.category === 'allergy' ? 'cat-allergy' : '';
-      return `<span class="chip ${catClass}">${escapeHtml(ing.name)}<button class="chip-x" onclick="removeIngredient(${i})" aria-label="${escapeHtml(ing.name)} 제거">×</button></span>`;
-    }).join('');
+    list.innerHTML = ingredients.map((ing, i) =>
+      `<span class="chip">${escapeHtml(ing)}<button class="chip-x" onclick="removeIngredient(${i})" aria-label="${escapeHtml(ing)} 제거">×</button></span>`
+    ).join('');
   }
 
   async function getRecipes() {
@@ -1177,13 +1030,7 @@
            </div>`
         : '';
       const tagsHtml = (r.tags && Array.isArray(r.tags) && r.tags.length > 0)
-        ? `<div class="info-tags">${r.tags.map(t => `<span class="info-tag">${escapeHtml(t)}</span>`).join('')}</div>`
-        : '';
-      const textureSection = r.texture
-        ? `<div class="recipe-section">
-             <div class="section-label">입자감</div>
-             <div class="ingredient-text">${escapeHtml(r.texture)}</div>
-           </div>`
+        ? `<div class="info-tags">${r.tags.slice(0, 3).map(t => `<span class="info-tag">${escapeHtml(t)}</span>`).join('')}</div>`
         : '';
       const substituteSection = r.substitutes
         ? `<div class="recipe-section">
@@ -1209,7 +1056,6 @@
           <div class="section-label">재료와 분량</div>
           <div class="ingredient-text">${escapeHtml(r.ingredients) || ''}</div>
         </div>
-        ${textureSection}
         <div class="recipe-section">
           <div class="section-label">조리 순서</div>
           <ol class="step-list">
@@ -1238,15 +1084,22 @@
     const area = document.getElementById('recipesArea');
     const cleanMsg = escapeHtml(message);
 
-    // 위쪽 재료 칩 자동 초기화
-    ingredients = [];
-    renderIngredients();
-
     area.innerHTML = `
       <div class="recipe-card" style="border-left: 4px solid var(--primary);">
-        <div style="font-size: 14px; line-height: 1.7; color: var(--text); white-space: pre-wrap;">${cleanMsg}</div>
+        <div style="font-size: 14px; line-height: 1.7; color: var(--text); white-space: pre-wrap; margin-bottom: 14px;">${cleanMsg}</div>
+        <button onclick="focusIngredientInput()" style="width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit;">
+          재료 수정해서 다시 만들기
+        </button>
       </div>
     `;
+  }
+
+  function focusIngredientInput() {
+    const input = document.getElementById('ingredientInput');
+    if (input) {
+      input.focus();
+      input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
   }
 
   // ===== 즐겨찾기 기능 =====
@@ -1261,9 +1114,8 @@
       servings: recipe.servings || '',
       used: Array.isArray(recipe.used) ? recipe.used.slice(0, 12) : [],
       ingredients: recipe.ingredients || '',
-      texture: recipe.texture || '',
       steps: Array.isArray(recipe.steps) ? recipe.steps.slice(0, 10) : [],
-      tags: Array.isArray(recipe.tags) ? recipe.tags.slice(0, 6) : [],
+      tags: Array.isArray(recipe.tags) ? recipe.tags.slice(0, 3) : [],
       reason: recipe.reason || '',
       substitutes: recipe.substitutes || '',
       tip: recipe.tip || '',
@@ -1391,22 +1243,27 @@
     const list = document.getElementById('favoritesList');
     const filterContainer = document.getElementById('favFilters');
 
-    // 단계별 카운트
-    const counts = { all: allFavs.length, '초기': 0, '중기': 0, '후기': 0, '완료기': 0 };
-    allFavs.forEach(f => {
-      const stage = getAgeStage(f.age);
-      if (counts[stage] !== undefined) counts[stage]++;
-    });
+    // 즐겨찾기 10개 미만이면 필터 숨김 (UI 단순화)
+    if (allFavs.length < 10) {
+      filterContainer.innerHTML = '';
+      currentFavFilter = 'all';
+    } else {
+      // 단계별 카운트
+      const counts = { all: allFavs.length, '초기': 0, '중기': 0, '후기': 0, '완료기': 0 };
+      allFavs.forEach(f => {
+        const stage = getAgeStage(f.age);
+        if (counts[stage] !== undefined) counts[stage]++;
+      });
 
-    // 필터 버튼
-    const filters = ['all', '초기', '중기', '후기', '완료기'];
-    const labels = { all: '전체', '초기': '초기', '중기': '중기', '후기': '후기', '완료기': '완료기' };
-    filterContainer.innerHTML = filters
-      .filter(f => f === 'all' || counts[f] > 0)
-      .map(f => {
-        const isActive = currentFavFilter === f;
-        return `<button class="fav-filter-btn ${isActive ? 'active' : ''}" onclick="setFavFilter('${f}')">${labels[f]} ${counts[f]}</button>`;
-      }).join('');
+      const filters = ['all', '초기', '중기', '후기', '완료기'];
+      const labels = { all: '전체', '초기': '초기', '중기': '중기', '후기': '후기', '완료기': '완료기' };
+      filterContainer.innerHTML = filters
+        .filter(f => f === 'all' || counts[f] > 0)
+        .map(f => {
+          const isActive = currentFavFilter === f;
+          return `<button class="fav-filter-btn ${isActive ? 'active' : ''}" onclick="setFavFilter('${f}')">${labels[f]} ${counts[f]}</button>`;
+        }).join('');
+    }
 
     // 필터 적용
     let favs = allFavs;
@@ -1459,7 +1316,6 @@
                 <div class="section-label">재료와 분량</div>
                 <div class="ingredient-text">${escapeHtml(r.ingredients) || ''}</div>
               </div>
-              ${r.texture ? `<div class="recipe-section"><div class="section-label">입자감</div><div class="ingredient-text">${escapeHtml(r.texture)}</div></div>` : ''}
               <div class="recipe-section">
                 <div class="section-label">조리 순서</div>
                 <ol class="step-list">
