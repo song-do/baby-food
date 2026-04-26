@@ -118,7 +118,7 @@
     display: block;
     width: 180px;
     height: auto;
-    margin: 0 auto 4px;
+    margin: -20px auto -10px;
     max-width: 60%;
     user-select: none;
     -webkit-user-drag: none;
@@ -127,6 +127,7 @@
   .subtitle {
     color: var(--muted);
     font-size: 13px;
+    margin-top: 0;
   }
   .tiny-notice {
     margin-top: 8px;
@@ -523,19 +524,6 @@
     border-radius: 10px;
     font-size: 14px;
   }
-  .footer {
-    text-align: center;
-    color: var(--primary);
-    font-size: 11px;
-    margin-top: 30px;
-    padding: 20px 0;
-    line-height: 1.6;
-  }
-  .footer a {
-    color: var(--primary);
-    text-decoration: underline;
-    cursor: pointer;
-  }
 
   /* 면책조항 모달 */
   .modal-overlay {
@@ -744,12 +732,6 @@
   <button class="submit-btn sticky-mode" id="submitBtn" onclick="getRecipes()" style="display: none;">이유식 레시피 만들기</button>
 
   <div class="recipes-area" id="recipesArea"></div>
-
-  <div class="footer">
-    AI가 만든 추천이며 의료적·영양학적 조언이 아닙니다.<br>
-    알레르기 반응 시 즉시 소아과에 문의하세요.<br>
-    <a onclick="showDisclaimer()">안내사항 다시 보기</a>
-  </div>
 </div>
 
 <script>
